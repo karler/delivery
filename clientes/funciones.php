@@ -64,4 +64,40 @@ class ClienteController{
         }
 
     }
+
+    public function eliminarCliente($id){
+        try{
+            // Verificar si el cliente existe antes de eliminar
+            $cliente = $this->obtenerCliente($id);
+            if (!$cliente){
+                throw new Exception("Cliente no encontrado");
+            }
+
+            //Manda la orden de eliminar en la colleción
+            $resultado = $this->collection->deleteOne(
+                ['_id' => new MongoDB\BSON\ObjectID($id)]
+            );
+
+            // Muestra un error en pantalla si NO eliminó
+            if ($resultado->getDeletedCount() === 0){
+                throw new Exception("No se pudo eliminar el cliente");
+            }
+
+        } catch (Exception $e) {
+            throw new Exception("Error al eliminar el cliente: " . $e->getMessage());
+        }
+
+    }
 }
+//Procesar acciones si se reciben por GET
+
+if (isset($_GET['action']) && isset($_GET['id'])) {
+    $controller = new ClienteController();
+
+    if($_GET['action'] = 'eliminar'){
+        $controller->eliminarCliente($_GET['id']);
+        header('Location: index.php');
+    }
+}
+
+?>

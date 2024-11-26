@@ -56,7 +56,11 @@
                     <td><?PHP echo $cliente->direccion."<br>"; ?></td>
                     <td>
                         <a href="editar.php?id=<?PHP echo $cliente->_id; ?>" class="btn btn-warning">Editar</a>
-                        <a href="" class="btn btn-danger">Eliminar</a>
+                        <a href="funciones.php?action=eliminar&id=<?PHP echo $cliente->_id ?>" 
+                            class="btn btn-danger"
+                            onclick="return confirm('¿Está seguro de eliminar este cliente?')">
+                        Eliminar
+                        </a>
                     </td>
                 </tr>
             <?PHP endforeach;  ?>
