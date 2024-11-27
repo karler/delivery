@@ -49,7 +49,7 @@ $categorias = [
 
                 <form method="POST" class="needs-validation" novalidate>
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-8 mb-3">
                             <label for="nombre" class="form-label">Nombre:</label>
                             <input type="text" class="form-control" id="nombre" name="nombre" required>
                             <div class="invalid-feedback">
@@ -57,7 +57,7 @@ $categorias = [
                             </div>
                         </div>
 
-                        <div class="col-md-6 mb-3">
+                        <div class="col-4 mb-3">
                             <label for="precio" class="form-label">Precio:</label>
                             <div class="input-group">
                                 <span class="input-group-text">$</span>
@@ -71,7 +71,7 @@ $categorias = [
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-8 mb-3">
                             <label for="categoria" class="form-label">Categoría:</label>
                             <select class="form-select" id="categoria" name="categoria" required>
                                 <option value="">Seleccione una categoría</option>
@@ -86,7 +86,7 @@ $categorias = [
                             </div>
                         </div>
 
-                        <div class="col-md-6 mb-3">
+                        <div class="col-4 mb-3">
                             <label class="form-label">Disponibilidad:</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="disponible" 
