@@ -55,7 +55,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    <?PHP foreach($pedidos as $pedido): ?>
+                        <tr>
+                            <td>
+                                <?= $pedido->_id; ?>
+                            </td>
+                            <td>
+                                <?= $pedido->fecha; ?>
+                            </td>
+                            <td>
+                                <?= $pedido->total; ?>
+                            </td>
+                            <td>
+                                <?= $pedido->estado; ?>
+                            </td>
+                            <td>
+                                <?= $pedido->estado_pago; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
