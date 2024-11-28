@@ -58,19 +58,22 @@
                     <?PHP foreach($pedidos as $pedido): ?>
                         <tr>
                             <td>
-                                <?= $pedido->_id; ?>
+                                <?= $pedido->_id ?>
                             </td>
                             <td>
-                                <?= $pedido->fecha; ?>
+                                <?= $pedido->cliente['nombre'] ?>
                             </td>
                             <td>
-                                <?= $pedido->total; ?>
+                                <?= $pedido->fecha ?>
                             </td>
                             <td>
-                                <?= $pedido->estado; ?>
+                                <?= $pedido->total ?>
                             </td>
                             <td>
-                                <?= $pedido->estado_pago; ?>
+                                <?= $pedido->estado ?>
+                            </td>
+                            <td>
+                                <?= $pedido->estado_pago ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
