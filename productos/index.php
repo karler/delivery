@@ -52,6 +52,9 @@
                     <td><?php echo $producto->categoria; ?></td>
                     <td><?php echo substr($producto->descripcion, 0, 50) . '...'; ?></td>
                     <td>
+                        <?php echo $producto->disponible ? 'Si': 'No'; ?>
+                    </td>
+                    <td>
                         <a href="editar.php?id=<?PHP echo $producto->_id; ?>" class="btn btn-warning">Editar</a>
                         <a href="funciones.php?action=eliminar&id=<?PHP echo $producto->_id ?>" 
                             class="btn btn-danger"

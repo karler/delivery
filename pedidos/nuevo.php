@@ -4,9 +4,14 @@
     require_once '../productos/funciones.php';
     require_once '../clientes/funciones.php';
 
+    // Inicializar los Controladores
+    $pedidosController = new PedidoController();
+    $productoController = new ProductoController();
+    $clienteController =new ClienteController();
+
     // Obtener listas necesarias
     $productos = $productoController->listarProductos();
-    $clientes = $clienteCOntroller->listarClientes();
+    $clientes = $clienteController->listarClientes();
 ?>
 
 <!DOCTYPE html>
@@ -31,12 +36,44 @@
 
         <div class="card mb-4">
             <div class="card-header">
-                <h4>Agregar Producto</h4>
+                <h4 class="card-title">Agregar Producto</h4>
             </div>
             <div class="card-body">
-
+                <form method="POST" class="row">
+                    <div class="col-4">
+                        <!-- Selecciona el producto -->
+                        <select name="id_producto" class="form-select" required>
+                            <option value="">Seleccione un producto</option>
+                            <?php foreach ($productos as $producto): ?>
+                                <?php if($producto->disponible): ?>
+                                    <option value="<?= $producto->_id ?>">
+                                        <?= $producto->nombre ?> (S/ <?= number_format($producto->precio, 2) ?>)
+                                    </option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <!-- Cantidad -->
+                    <div class="col-2">
+                        <input type="number" name="cantidad" value="1" min="1" class="form-control" required>
+                    </div>
+                    <!-- Notas adicionales -->
+                    <div class="col-4">
+                            <input type="text" name="notas" class="form-control" placeholder="Notas adicionales">
+                    </div>
+                    <!-- Boton agregar producto -->
+                    <div class="col-2">
+                        <button type="submit" name="agregar_producto" class="btn btn-primary">
+                            Agregar
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
+
+        <!-- Lista de productos agregados -->
+
+
     </div>
 </body>
 </html>
