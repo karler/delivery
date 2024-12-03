@@ -4,10 +4,37 @@
     require_once '../productos/funciones.php';
     require_once '../clientes/funciones.php';
 
+    session_start();
+    // Inicializar los productos del pedido si no existen
+    if (!isset($_SESSION['productos_pedido'])){
+        $_SESSION['productos_pedido']=array();
+    }
+
     // Inicializar los Controladores
     $pedidosController = new PedidoController();
     $productoController = new ProductoController();
     $clienteController =new ClienteController();
+
+    // Procesar el formulario de agregar producto al pedido
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Agregar el producto al pedido
+        if (isset($_POST['agregar_producto'])){
+            if (!empty($_POST['id_producto']) && !empty($_POST['cantidad'])){
+                $producto = $productoController->obtenerProducto($_POST['id_producto']);
+                if ($producto){
+                    $_SESSION['productos_pedido'][] = [
+                        'id_producto' => $_POST['id_producto'],
+                        //'id_producto' => $producto->_id,
+                        'nombre_producto' => $producto->nombre,
+                        'cantidad' => (int)$_POST['cantidad'],
+                        'precio' => $producto->precio,
+                        'notas' => $_POST['notas']
+                    ];
+                }
+
+            }
+        }
+    }
 
     // Obtener listas necesarias
     $productos = $productoController->listarProductos();
@@ -67,13 +94,52 @@
                             Agregar
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>
 
         <!-- Lista de productos agregados -->
 
-
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="card-title">Productos del pedido</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unit.</th>
+                            <th>Subtotal</th>
+                            <th>Notas</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($_SESSION['productos_pedido'] as $index => $item): ?>
+                            <tr>
+                                <td><?= $item['nombre_producto'] ?></td>
+                                <td><?= $item['cantidad'] ?></td>
+                                <td><?= number_format($item['precio'],2) ?></td>
+                                <!-- Sub Total -->
+                                <td><?= number_format($item['precio'],2)*$item['cantidad'] ?></td>
+                                <td><?= $item['notas'] ?></td>
+                                <td>
+                                    <form>
+                                        <input type="hidden" name="index" value="<?= $index ?>">
+                                        <button type="submit" name="eliminar_producto" class="btn btn-danger">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 </html>
